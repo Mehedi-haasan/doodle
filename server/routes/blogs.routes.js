@@ -13,10 +13,17 @@ module.exports = function (app) {
 
 
     app.get("/api/get/blogs", controller.getBlogs);
-    
+    app.get("/api/get/user/blogs",jwt.verifyToken, controller.getUserBlogs);
+
+    app.get("/api/get/user/favorite/blogs",jwt.verifyToken, controller.getUserFavoriteBlogs);
+
     app.post("/api/create/blogs", jwt.verifyToken,  controller.createBlog);
-    app.get("/api/get/blogs/:id",jwt.verifyToken, controller.getBlogById);
+    app.post("/api/favorite/blogs/:id", jwt.verifyToken,  controller.FavoriteBlog);
+
+    app.get("/api/get/blogs/:id", jwt.verifyToken, controller.getBlogById);
+
     app.put("/api/get/blogs/:id", controller.UpdateBlog);
+
     app.delete("/api/delete/blogs/:id", jwt.verifyToken, controller.DeleteBlog);
 
 };

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const comment = sequelize.define("comments", {
+    const Favorite = sequelize.define("favorite", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -8,16 +8,13 @@ module.exports = (sequelize, Sequelize) => {
         active: {
             type: Sequelize.BOOLEAN,
         },
-        blogId: {
-            type: Sequelize.INTEGER
-        },
         userId: {
             type: Sequelize.INTEGER
         },
-        comment: {
-            type: Sequelize.STRING
+        blogId: {
+            type: Sequelize.INTEGER
         },
     });
 
-    return comment;
+    return Favorite;
 };

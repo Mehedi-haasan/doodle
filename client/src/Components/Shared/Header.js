@@ -30,7 +30,8 @@ const Header = () => {
 
         <div className='col-span-4 hidden md:block md:m-auto'>
           <NavLink  className='mx-2 text-md md:text-xl font-bold hover:text-blue-500 focus:text-red-500' to="/home">Home</NavLink>
-          <NavLink  className='mx-2 text-md md:text-xl font-bold hover:text-blue-500 focus:text-red-500' to="/event">Blog</NavLink>
+          <NavLink  className='mx-2 text-md md:text-xl font-bold hover:text-blue-500 focus:text-red-500' to="/favorite/blog">Favorite Blog</NavLink>
+          <NavLink  className='mx-2 text-md md:text-xl font-bold hover:text-blue-500 focus:text-red-500' to="/event">Create Blog</NavLink>
         </div>
 
 
@@ -50,12 +51,12 @@ const Header = () => {
             <div className={`absolute ${open ? "block" : "hidden"} mt-12 bg-white shadow-ld right-0  px-0 w-[250px]  md:px-2 py-1 space-y-1 rounded animation-open transition-all duration-300`}>
               <div className='flex shadow rounded-md p-2'>
               <img alt='qwer' className='h-8 ml-1 w-8 mr-1 rounded-full' src='https://scontent.fdac135-1.fna.fbcdn.net/v/t39.30808-6/366606662_2101705720162212_3015616699096048132_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeHGJpN8bLMrQrt6bgUv8p9fU44vG6XhW69Tji8bpeFbr9BvArv-okFiSJgQzBTQuyHgRPgNArqtOBr0f5KYGe07&_nc_ohc=lmCopI_p14wAX95p9xd&_nc_ht=scontent.fdac135-1.fna&oh=00_AfBIcD_oGqmNSYUCoYOCXIlWSWEHYiX3TxrJ3mGPZlRfeQ&oe=65B9791E' />
-              <NavLink className="font-semibold p-1">Mehedi Hasan</NavLink>
+              <NavLink to='/profile' onClick={()=>{setOpen(!open)}} className="font-semibold p-1">Mehedi Hasan</NavLink>
               </div>
               <ul >
-                <li className='hover:translate-x-1 duration-300 hover:text-red-500'><NavLink to='/profile' className='font-bold px-1 text-red-500'>Profile</NavLink></li>
-                <li className='hover:translate-x-1 duration-300 hover:text-red-500'><button className='font-bold px-1 text-red-500'>About</button></li>
-                <li className='hover:translate-x-1 duration-300 hover:text-red-500'><button className='font-bold px-1 text-red-500'>LogOut</button></li>
+                <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to='/profile' className='font-bold px-1 '>Profile</NavLink></li>
+                <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to="/login" className='font-bold px-1 '>Login</NavLink></li>
+                <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to="/registration" className='font-bold px-1 '>Registration</NavLink></li>
               </ul>
             </div>
 

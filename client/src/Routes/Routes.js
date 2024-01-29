@@ -7,8 +7,10 @@ import Login from '../Login/Login';
 import ForgotPassword from "../Login/ForgotPassword";
 import Profile from "../Components/Profile/Profile";
 import Registration from "../Login/Registration";
-import Blog from '../Components/Blogs/Blog';
+import CreateBlog from '../Components/Blogs/CreateBlog';
 import Home from '../Components/Home/Home';
+import BlogDetails from '../Components/Blogs/BlogDetails';
+import FavoriteBlog  from '../Components/Favorite/FavoriteBlog';
 
 
 
@@ -31,7 +33,9 @@ const Router = () => {
         <Routes>
            <Route path='/profile' element={ <Profile/> }/>
            <Route path='/home' element={<Home/>}/>
-           <Route path='/event' element={<Blog/>}/>
+           <Route path='/event' element={<CreateBlog/>}/>
+           <Route path='/blog/details/:id' element={<BlogDetails/>}/>
+           <Route path='/favorite/blog' element={<FavoriteBlog/>}/>
            <Route path='/login' element={<Login/>}/>
            <Route path='/registration' element={<Registration/>}/>
            <Route path='/forgotpassword' element={<ForgotPassword/>}/>

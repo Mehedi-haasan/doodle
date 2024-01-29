@@ -79,9 +79,8 @@ exports.createComment = async (req, res) => {
         await Comment.create({
             acitve: 1,
             blogId: req.body.blogId,
-            name: req.body.name,
-            email: req.body.email,
-            body: req.body.message,
+            userId: req.userId,
+            comment: req.body.comment,
         })
 
         res.status(200).send({
@@ -98,11 +97,11 @@ exports.createComment = async (req, res) => {
 exports.UpdateComment = async (req, res) => {
 
   try {
-      await Blog.create({
+      await Comment.uodate({
         acitve: 1,
+        blogId: req.body.blogId,
         userId: req.userId,
-        title: req.body.title,
-        message: req.body.message,
+        comment: req.body.comment,
     })
 
 
@@ -119,7 +118,7 @@ exports.UpdateComment = async (req, res) => {
 }
 
 
-exports.DeleteBlog = async (req, res) => {
+exports.DeleteComent = async (req, res) => {
 
   try {
       await Blog.distroy({

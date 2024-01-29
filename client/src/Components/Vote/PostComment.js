@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 
-const PostComment = ({ id ,onValueChange}) => {
+const PostComment = ({ id, onValueChange }) => {
 
     const [values, setValues] = useState({
         blogId: id,
-        name: "",
-        email: "",
-        message: ""
+        comment: "",
     })
 
     const handleInputChange = (e) => {
         onValueChange(false);
-      };
+    };
 
     const postComment = async (e) => {
         e.preventDefault()
@@ -22,7 +20,7 @@ const PostComment = ({ id ,onValueChange}) => {
             method: 'POST',
             body: JSON.stringify(values),
             headers: {
-                'authorization':token,
+                'authorization': token,
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
@@ -34,22 +32,11 @@ const PostComment = ({ id ,onValueChange}) => {
 
     return (
         <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-            <div className='mb-6'><Icon onClick={handleInputChange} className='m-3 cursor-pointer float-right' icon="fluent-emoji-flat:cross-mark" /></div>
+            <div className='mb-2'><Icon onClick={handleInputChange} className='m-3 cursor-pointer float-right' icon="fluent-emoji-flat:cross-mark" /></div>
             <div className='p-4'>
-                <div class="grid gap-6 mb-6 md:grid-cols-2">
-                    <div>
-                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input onChange={(e) => { setValues({ ...values, name: e.target.value }) }} type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your name" required />
-                    </div>
-                    <div>
-                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input onChange={(e) => { setValues({ ...values, email: e.target.value }) }} type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your email" required />
-                    </div>
-
-                </div>
                 <div className='pb-2'>
                     <label htmlFor="Comment" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comment</label>
-                    <textarea onChange={(e) => { setValues({ ...values, message: e.target.value }) }} type="text" readOnly={false} id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your comment" required />
+                    <textarea onChange={(e) => { setValues({ ...values, comment: e.target.value }) }} type="text" readOnly={false} id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your comment" required />
                 </div>
 
                 <button type="submit" onClick={postComment} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>

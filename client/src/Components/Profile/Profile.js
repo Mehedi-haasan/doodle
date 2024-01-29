@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import VoteCard from "../Vote/VoteCard";
+import MyBlog from "./MyBlog";
 
 
 
@@ -20,7 +20,7 @@ const Profile = () => {
 
   const fetchData = async () => {
     const token = localStorage.getItem('token')
-    const response = await fetch(`http://localhost:8050/api/get/blogs`, {
+    const response = await fetch(`http://localhost:8050/api/get/user/blogs`, {
       method: 'GET',
       headers: {
         'authorization': token,
@@ -87,7 +87,7 @@ const Profile = () => {
                 <div className='p-1'>
                   {
                     data.map(({ id, name, image_url, user, title, message, images, like, comments, updated }) => {
-                      return <VoteCard key={id} id={id} name={name} user={user} title={title} image_url={image_url} message={message} images={images} like={like} comments={comments} updated={updated} />
+                      return <MyBlog key={id} id={id} name={name} user={user} title={title} image_url={image_url} message={message} images={images} like={like} comments={comments} updated={updated} />
                     })
                   }
                 </div>

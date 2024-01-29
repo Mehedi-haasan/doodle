@@ -57,7 +57,8 @@ exports.singUp = async (req, res) => {
             last_name: req.body.last_name,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
-            roleId: roleId
+            roleId: roleId,
+            image_url:req.body.image_url
         });
 
 

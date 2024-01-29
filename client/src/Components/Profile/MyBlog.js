@@ -9,8 +9,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Icon } from '@iconify/react';
 import { FiX } from "react-icons/fi";
-import PostComment from './PostComment';
-import VievComment from './VievComment';
+import PostComment from '../Vote/PostComment';
+import VievComment from '../Vote/VievComment';
 
 
 
@@ -18,7 +18,7 @@ import VievComment from './VievComment';
 
 
 
-const VoteCard = ({ id, name, image_url, title, message, user, images, like, comments, updated }) => {
+const MyBlog = ({ id, name, image_url, title, message, user, images, like, comments, updated }) => {
 
     const [likePrint, setLikePrint] = useState(false);
     const [commentPrint, setCommentPrint] = useState(false)
@@ -72,7 +72,23 @@ const VoteCard = ({ id, name, image_url, title, message, user, images, like, com
         handleComment()
     }, [])
 
-
+    
+    const handleDeleteBlog = async () => {
+        const token = localStorage.getItem('token')
+        var userResponse = window.confirm("Do you want to proceed?");
+        if (userResponse) {
+            const response = await fetch(`http://localhost:8050/api/delete/blogs/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'authorization': token,
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            });
+            const data = await response.json();
+            alert(data.message)
+            console.log(data);
+        }
+    }
 
  
 
@@ -112,9 +128,9 @@ const VoteCard = ({ id, name, image_url, title, message, user, images, like, com
                             </div>
                         </div>
                         <div className='grid col-span-1 float-right'>
-                            <div className=''>
+                            <div className='flex'>
                                 <Icon onClick={addToFavorite} className='float-right mt-2 lg:mt-3 cursor-pointer' width="18px" icon="fluent-mdl2:add-favorite" />
-                                {/* <p className='p-2 text-right'><button className='float-right right-0 font-bold md:text-3xl' onClick={handleDeleteBlog}><FiX className='opacity-75' /></button></p> */}
+                                <p className='p-2 text-right'><button className='float-right right-0 font-bold md:text-3xl' onClick={handleDeleteBlog}><FiX className='opacity-75' /></button></p>
 
                             </div>
                         </div>
@@ -203,4 +219,4 @@ const VoteCard = ({ id, name, image_url, title, message, user, images, like, com
     )
 }
 
-export default VoteCard;
+export default MyBlog;

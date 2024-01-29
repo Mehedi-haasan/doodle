@@ -12,6 +12,7 @@ const db = require("./models");
 require('./routes/user.routes')(app);
 require('./routes/blogs.routes')(app);
 require('./routes/comment.routes')(app);
+// require('./routes/comment.routes')(app);
 
 const Role = db.role;
 

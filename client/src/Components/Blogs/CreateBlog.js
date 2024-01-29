@@ -26,6 +26,7 @@ const Blog = () => {
         })
         const data = await response.json();
         alert(data.message)
+        goToHomePage('/home')
     }
 
     return (

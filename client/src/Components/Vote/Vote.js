@@ -31,7 +31,6 @@ const Vote = () => {
     fetchData();
   }, [])
 
-console.log(data);
 
   return (
     <div className='bg-opacity-50 bg-gradient-to-br from-slate-50 to-black lg:to-red-100'>
