@@ -135,7 +135,12 @@ exports.singIn = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
     try {
-        const data = await User.findAll()
+        const data = await User.findOne({
+            where:{
+                id:req.userId
+            }
+        })
+        
         res.status(200).send({
             success: true,
             items: data,

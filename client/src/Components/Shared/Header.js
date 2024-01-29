@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from "@iconify/react";
-import logo from '../../Logo/Adust.PNG'
+
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [userInfo, setUserInfo]=useState(false)
+  const [data, setData]=useState()
   const [message, setMessage]=useState(false)
   const [notification, setNotification]=useState(false)
 
+  const fetchData = async () => {
+    const token = localStorage.getItem('token')
+    const response = await fetch(`http://localhost:8050/api/get/users`, {
+      method: 'GET',
+      headers: {
+        'authorization': token,
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+    const data = await response.json()
+    setData(data.items)
+    if(data){
+      setUserInfo(true)
+    }
+  }
 
+  useEffect(() => {
+    fetchData();
+  }, [])
 
-
+console.log(data);
 
 
   return (
-    <div className='bg-white sticky top-0 z-50 relative'>
+    <div className='bg-white bg-[#1E1F1E] text-white sticky top-0 z-50 relative'>
       <header className={`grid grid-cols-12 z-50 justify-between w-[100%] md:w-[95%] m-auto p-4 items-center sticky top-0`}>
 
         <div className='col-span-7 md:col-span-4 mx-2'>
@@ -29,9 +49,9 @@ const Header = () => {
 
 
         <div className='col-span-4 hidden md:block md:m-auto'>
-          <NavLink  className='mx-2 text-md md:text-xl font-bold hover:text-blue-500 focus:text-red-500' to="/home">Home</NavLink>
-          <NavLink  className='mx-2 text-md md:text-xl font-bold hover:text-blue-500 focus:text-red-500' to="/favorite/blog">Favorite Blog</NavLink>
-          <NavLink  className='mx-2 text-md md:text-xl font-bold hover:text-blue-500 focus:text-red-500' to="/event">Create Blog</NavLink>
+          <NavLink  className='mx-2 text-md md:text-lg font-bold hover:text-blue-500 focus:text-red-500' to="/home">Home</NavLink>
+          <NavLink  className='mx-2 text-md md:text-lg font-bold hover:text-blue-500 focus:text-red-500' to="/favorite/blog">FavoriteBlog</NavLink>
+          <NavLink  className='mx-2 text-md md:text-lg font-bold hover:text-blue-500 focus:text-red-500' to="/event">CreateBlog</NavLink>
         </div>
 
 
@@ -39,28 +59,30 @@ const Header = () => {
         <div className='col-span-5 md:col-span-4 float-right'>
           <div className="flex text-sm items-center relative z-40 float-right">
             <div className='relative'>
-              <img alt='qwer' className='h-8 ml-1 w-8 rounded-full cursor-pointer' src='https://scontent.fdac135-1.fna.fbcdn.net/v/t39.30808-6/366606662_2101705720162212_3015616699096048132_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeHGJpN8bLMrQrt6bgUv8p9fU44vG6XhW69Tji8bpeFbr9BvArv-okFiSJgQzBTQuyHgRPgNArqtOBr0f5KYGe07&_nc_ohc=lmCopI_p14wAX95p9xd&_nc_ht=scontent.fdac135-1.fna&oh=00_AfBIcD_oGqmNSYUCoYOCXIlWSWEHYiX3TxrJ3mGPZlRfeQ&oe=65B9791E' />
+              {userInfo ? <img alt='qwer' className='h-8 ml-1 w-8 rounded-full cursor-pointer' src={data.image_url} /> : <Icon width="25px" icon="entypo:user"/>}
               <button onClick={()=>{setNotification(false); setMessage(false);setOpen(!open)}} className="flex items-center space-x-1">
-                <Icon icon="ep:arrow-down" className={`transition-transform absolute z-50 bg-gray-300 border-2 border-white rounded-full right-0 duration-300 ${open ? "rotate-180" : "rotate-0"}`} />
+                <Icon icon="ep:arrow-down" className={`transition-transform absolute z-50 bg-[#F18757] border-2 border-white rounded-full right-0 duration-300 ${open ? "rotate-180" : "rotate-0"}`} />
               </button>
             </div>
           </div>
 
           {/* Profile Edit Option */}
-          <div className='relative shadow-lg rounded bg-white'>
-            <div className={`absolute ${open ? "block" : "hidden"} mt-12 bg-white shadow-ld right-0  px-0 w-[250px]  md:px-2 py-1 space-y-1 rounded animation-open transition-all duration-300`}>
-              <div className='flex shadow rounded-md p-2'>
-              <img alt='qwer' className='h-8 ml-1 w-8 mr-1 rounded-full' src='https://scontent.fdac135-1.fna.fbcdn.net/v/t39.30808-6/366606662_2101705720162212_3015616699096048132_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeHGJpN8bLMrQrt6bgUv8p9fU44vG6XhW69Tji8bpeFbr9BvArv-okFiSJgQzBTQuyHgRPgNArqtOBr0f5KYGe07&_nc_ohc=lmCopI_p14wAX95p9xd&_nc_ht=scontent.fdac135-1.fna&oh=00_AfBIcD_oGqmNSYUCoYOCXIlWSWEHYiX3TxrJ3mGPZlRfeQ&oe=65B9791E' />
-              <NavLink to='/profile' onClick={()=>{setOpen(!open)}} className="font-semibold p-1">Mehedi Hasan</NavLink>
-              </div>
-              <ul >
-                <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to='/profile' className='font-bold px-1 '>Profile</NavLink></li>
-                <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to="/login" className='font-bold px-1 '>Login</NavLink></li>
-                <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to="/registration" className='font-bold px-1 '>Registration</NavLink></li>
-              </ul>
-            </div>
-
+           <div className='relative shadow-lg rounded bg-[#F0F2F5]'>
+          <div className={`absolute ${open ? "block" : "hidden"} mt-12 bg-[#F0F2F5] shadow-ld right-0  p-3 w-[250px] space-y-1 rounded animation-open transition-all duration-300`}>
+            {
+              userInfo ? <div className='flex shadow bg-white rounded-md p-2'>
+              <img alt='qwer' className='h-8 ml-1 w-8 mr-1 rounded-full' src={data.image_url} />
+              <NavLink to='/profile' onClick={()=>{setOpen(!open)}} className="font-semibold text-black p-1">{data.first_name} {data.last_name}</NavLink>
+              </div> : <span/>
+            }
+            <ul >
+              <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to='/profile' className='font-semibold text-black px-1 '>Profile</NavLink></li>
+              <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to="/login" className='font-semibold px-1 text-black '>Login</NavLink></li>
+              <li className='hover:translate-x-1 duration-300 '><NavLink onClick={()=>{setOpen(!open)}} to="/registration" className='font-semibold px-1 text-black'>Registration</NavLink></li>
+            </ul>
           </div>
+
+        </div> 
         </div>
 
 

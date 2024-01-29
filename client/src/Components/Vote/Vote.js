@@ -33,7 +33,7 @@ const Vote = () => {
 
 
   return (
-    <div className='bg-opacity-50 bg-gradient-to-br from-slate-50 to-black lg:to-red-100'>
+    <div className='bg-[#F0F2F5]'>
       <div className='p-1 w-full sm:w-[80%] md:w-[55%] lg:w-[50%] xl:w-[40%] mx-auto'>
         {
           data.map(({ id, name, image_url,user,title, message, images, like, comments, updated }) => {
