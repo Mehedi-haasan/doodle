@@ -1,7 +1,7 @@
 const config = {
     HOST: "localhost",
     USER: "root",
-    PASSWORD: "Ceevit250",
+    PASSWORD: "ceevit250",
     DB: "doodle",
     dialect: "mysql",
     pool: {

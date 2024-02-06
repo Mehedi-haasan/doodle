@@ -141,7 +141,6 @@ isModeratorOrAdmin = (req, res, next) => {
 verifyToken = async (req, res, next) => {
 
     const token = req.headers.authorization;
-    console.log(token);
     if (!token) {
         return res.status(401).json({ message: 'Token not provided' });
     }
@@ -154,7 +153,6 @@ verifyToken = async (req, res, next) => {
         }
 
         const user = await User.findByPk(decoded.id);
-        console.log(user);
 
         req.userId = user.id;
         next();

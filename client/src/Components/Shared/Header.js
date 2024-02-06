@@ -30,11 +30,10 @@ const Header = () => {
     fetchData();
   }, [])
 
-console.log(data);
 
 
   return (
-    <div className='bg-white bg-[#1E1F1E] text-white sticky top-0 z-50 relative'>
+    <div className='bg-white bg-[#1E1F1E] text-black sticky top-0 z-50 relative'>
       <header className={`grid grid-cols-12 z-50 justify-between w-[100%] md:w-[95%] m-auto p-4 items-center sticky top-0`}>
 
         <div className='col-span-7 md:col-span-4 mx-2'>

@@ -4,9 +4,6 @@ import { BiLike } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
 import { NavLink } from "react-router-dom";
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 import { Icon } from '@iconify/react';
 import { FiX } from "react-icons/fi";
 import PostComment from '../Vote/PostComment';
