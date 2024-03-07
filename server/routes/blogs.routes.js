@@ -20,6 +20,8 @@ module.exports = function (app) {
     app.post("/api/create/blogs", jwt.verifyToken,  controller.createBlog);
     app.post("/api/favorite/blogs/:id", jwt.verifyToken,  controller.FavoriteBlog);
 
+    app.post("/api//blogs/like", jwt.verifyToken,  controller.LikeBlog);
+
     app.get("/api/get/blogs/:id", jwt.verifyToken, controller.getBlogById);
 
     app.put("/api/get/blogs/:id", controller.UpdateBlog);

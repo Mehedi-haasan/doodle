@@ -4,6 +4,7 @@ const Blog = db.blog;
 const User = db.user;
 const Comment = db.coment;
 const Favorite = db.favorite;
+const Like = db.like;
 
 
 exports.getBlogs = async (req, res) => {
@@ -24,7 +25,15 @@ exports.getBlogs = async (req, res) => {
           attributes: ['first_name', 'last_name', 'image_url', 'email'],
         }]
       },
+      {
+        model: Like,
+        attributes: ['id'],
+      }
       ],
+      // include: [{
+      //   model: Like,
+      //   attributes: ['id'],
+      // }]
     })
 
     // let blogData = await db.sequelize.query('Select * from users')
@@ -46,9 +55,9 @@ exports.getUserBlogs = async (req, res) => {
 
     let data = await Blog.findAll({
       attributes: ['id', 'title', 'message', 'image_url'],
-       where:{
-          userId:req.userId
-       },
+      where: {
+        userId: req.userId
+      },
       include: [{
         model: User,
         attributes: ['first_name', 'last_name', 'image_url', 'email'],
@@ -146,6 +155,7 @@ exports.getBlogById = async (req, res) => {
         }]
       },
       ],
+
     })
 
     // let blogData = await db.sequelize.query('Select * from users')
@@ -182,6 +192,55 @@ exports.createBlog = async (req, res) => {
     res.status(500).send({ success: false, message: error.message });
   }
 
+}
+
+exports.LikeBlog = async (req, res) => {
+  let message = '';
+  try {
+    const data = await Like.findOne({
+      where: {
+        userId: req.userId,
+        blogId: req.body.id,
+      },
+    });
+
+    if (!data) {
+      await Like.create({
+        active: 1,
+        userId: req.userId,
+        blogId: req.body.id,
+      });
+      message = "Like";
+    } else if (data.active === 1) {
+      await Like.update({
+        active: 0,
+      }, {
+        where: {
+          userId: req.userId,
+          blogId: req.body.id,
+        }
+      });
+      message = "Unlike";
+    } else {
+      await Like.update({
+        active: 1,
+      }, {
+        where: {
+          userId: req.userId,
+          blogId: req.body.id,
+        }
+      });
+      message = "Like";
+    }
+
+    res.status(200).send({
+      success: true,
+      message: message
+    });
+
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
 }
 
 exports.FavoriteBlog = async (req, res) => {
@@ -234,7 +293,7 @@ exports.FavoriteBlog = async (req, res) => {
 exports.UpdateBlog = async (req, res) => {
 
   try {
-    const values ={
+    const values = {
       acitve: 1,
       userId: req.userId,
       title: req.body.title,
@@ -242,9 +301,9 @@ exports.UpdateBlog = async (req, res) => {
       image_url: req.body.image_url
     }
 
-    await Blog.update(values,{
-      where:{
-        id:req.params.id
+    await Blog.update(values, {
+      where: {
+        id: req.params.id
       }
     })
 

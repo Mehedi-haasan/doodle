@@ -32,7 +32,7 @@ db.role = require("./role.model")(sequelize, Sequelize);
 db.blog = require("./blogs.model")(sequelize, Sequelize);
 db.coment = require("./comment.model")(sequelize, Sequelize);
 db.favorite = require("./favorite.model")(sequelize, Sequelize);
-
+db.like = require("./like.model")(sequelize, Sequelize);
 
 
 
@@ -71,14 +71,20 @@ db.favorite.belongsTo(db.blog,{
 })
 
 
+db.user.hasMany(db.like,{
+  foreignKey:"userId"
+})
+db.like.belongsTo(db.user,{
+  foreignKey:"userId"
+})
 
-// db.user.hasOne(db.blog,{
-//   foreignKey:"blogId"
-// });
 
-
-// db.blog.belongsTo(db.user, { foreignKey: 'blogId' });
-// db.user.hasOne(db.blog, { foreignKey: 'blogId' });
+db.blog.hasMany(db.like,{
+  foreignKey:"blogId"
+})
+db.like.belongsTo(db.blog,{
+  foreignKey:"blogId"
+})
 
 
 
